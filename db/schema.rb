@@ -20,12 +20,14 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_12_130527) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["division_id"], name: "index_departments_on_division_id"
+    t.index ["name"], name: "index_departments_on_name"
   end
 
   create_table "divisions", force: :cascade do |t|
     t.string "name", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_divisions_on_name"
   end
 
   create_table "employee_answers", force: :cascade do |t|
@@ -36,6 +38,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_12_130527) do
     t.text "comment"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["employee_id", "survey_id", "question_id"], name: "index_unique_answer_per_employee_survey_question", unique: true
     t.index ["employee_id"], name: "index_employee_answers_on_employee_id"
     t.index ["question_id"], name: "index_employee_answers_on_question_id"
     t.index ["question_option_id"], name: "index_employee_answers_on_question_option_id"
@@ -59,6 +62,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_12_130527) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["corporate_email"], name: "index_employees_on_corporate_email", unique: true
+    t.index ["name"], name: "index_employees_on_name"
     t.index ["personal_email"], name: "index_employees_on_personal_email", unique: true
     t.index ["sub_team_id"], name: "index_employees_on_sub_team_id"
   end
@@ -78,6 +82,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_12_130527) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["survey_id"], name: "index_questions_on_survey_id"
+    t.index ["title"], name: "index_questions_on_title"
   end
 
   create_table "sub_teams", force: :cascade do |t|
@@ -85,6 +90,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_12_130527) do
     t.bigint "team_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_sub_teams_on_name"
     t.index ["team_id"], name: "index_sub_teams_on_team_id"
   end
 
@@ -92,6 +98,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_12_130527) do
     t.string "title", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["title"], name: "index_surveys_on_title"
   end
 
   create_table "teams", force: :cascade do |t|
@@ -100,6 +107,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_12_130527) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["department_id"], name: "index_teams_on_department_id"
+    t.index ["name"], name: "index_teams_on_name"
   end
 
   add_foreign_key "departments", "divisions"

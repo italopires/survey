@@ -8,5 +8,7 @@ class CreateEmployeeAnswers < ActiveRecord::Migration[8.0]
       t.text :comment
       t.timestamps
     end
+
+    add_index :employee_answers, [:employee_id, :survey_id, :question_id], unique: true, name: 'index_unique_answer_per_employee_survey_question'
   end
 end

@@ -1,7 +1,7 @@
 class CreateEmployees < ActiveRecord::Migration[8.0]
   def change
     create_table :employees do |t|
-      t.string :name
+      t.string :name, index: true
       t.string :personal_email, index: { unique: true }
       t.string :corporate_email, index: { unique: true }
       t.string :phone_number
