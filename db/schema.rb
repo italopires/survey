@@ -30,14 +30,16 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_12_130527) do
 
   create_table "employee_answers", force: :cascade do |t|
     t.bigint "employee_id", null: false
+    t.bigint "survey_id", null: false
     t.bigint "question_id", null: false
-    t.bigint "question_option_id", null: false
+    t.bigint "question_option_id"
     t.text "comment"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["employee_id"], name: "index_employee_answers_on_employee_id"
     t.index ["question_id"], name: "index_employee_answers_on_question_id"
     t.index ["question_option_id"], name: "index_employee_answers_on_question_option_id"
+    t.index ["survey_id"], name: "index_employee_answers_on_survey_id"
   end
 
   create_table "employees", force: :cascade do |t|
@@ -45,14 +47,15 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_12_130527) do
     t.string "personal_email"
     t.string "corporate_email"
     t.string "phone_number"
-    t.string "department"
-    t.string "position"
+    t.string "area"
     t.string "role"
+    t.string "role_kind"
+    t.string "position"
     t.string "location"
     t.string "company_tenure"
     t.string "gender"
     t.string "generation"
-    t.bigint "sub_team_id"
+    t.bigint "sub_team_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["corporate_email"], name: "index_employees_on_corporate_email", unique: true
@@ -63,7 +66,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_12_130527) do
   create_table "question_options", force: :cascade do |t|
     t.bigint "question_id", null: false
     t.integer "value", null: false
-    t.string "label"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["question_id"], name: "index_question_options_on_question_id"
@@ -104,6 +106,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_12_130527) do
   add_foreign_key "employee_answers", "employees"
   add_foreign_key "employee_answers", "question_options"
   add_foreign_key "employee_answers", "questions"
+  add_foreign_key "employee_answers", "surveys"
   add_foreign_key "employees", "sub_teams"
   add_foreign_key "question_options", "questions"
   add_foreign_key "questions", "surveys"
