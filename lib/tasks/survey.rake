@@ -10,7 +10,7 @@ namespace :survey do
         
         CSV.open(path, 'r:utf-8', col_sep: ';', headers: true) do |csv|
           headers = csv.first.headers
-          puts headers.inspect
+
           csv.first.headers[16..]
 
           (16..(csv.first.headers.size - 1)).step(2).each do |i|
@@ -25,11 +25,18 @@ namespace :survey do
             (0..10).each do |i|
               QuestionOption.find_or_create_by!(
                 question_id: question.id,
-                value: i
+                value: i,
+                order: i
               )
             end
           end
         end
+
+        gender_map = {
+          'masculino' => 0,
+          'feminino' => 1,
+          'outro' => 2,
+        }
 
         CSV.foreach(path, headers: true, col_sep: ';', encoding: 'utf-8',) do |row|
           division = Division.find_or_create_by!(name: row['n1_diretoria'])
@@ -47,7 +54,7 @@ namespace :survey do
             e.role_kind = row['funcao']
             e.location = row['localidade']
             e.company_tenure = row['tempo_de_empresa']
-            e.gender = row['genero']
+            e.gender = gender_map.fetch(row['geracao'].to_s.downcase, 2)
             e.generation = row['geracao']
             e.sub_team = sub_team
           end
