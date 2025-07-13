@@ -26,7 +26,6 @@ namespace :survey do
               QuestionOption.find_or_create_by!(
                 question_id: question.id,
                 value: i,
-                order: i
               )
             end
           end
@@ -48,8 +47,6 @@ namespace :survey do
             e.name = row['nome']
             e.personal_email = row['email']
             e.area = row['area']
-            e.position = row['cargo']
-            e.phone_number = row['celular']
             e.role = row['cargo']
             e.role_kind = row['funcao']
             e.location = row['localidade']
