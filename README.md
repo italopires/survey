@@ -1,5 +1,9 @@
 # README
 
+# Introduction
+
+Survey is an application that allow use to build awesome surveys into the companys, to help the managers to ask key questions in order to improve workflows, bring enhancements for the teams and company.
+
 ### Ruby on Rails
 This application requires:
 * ruby 3.4.3
