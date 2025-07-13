@@ -1,24 +1,45 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+### Ruby on Rails
+This application requires:
+* ruby 3.4.3
 
-Things you may want to cover:
+### Database
+This application uses Postgresql with ActiveRecord
 
-* Ruby version
+### Development
+* Testing Framework: RSpec and Factory Bot
 
-* System dependencies
+## Build, Import CSV file and Up Docker container.
 
-* Configuration
+```console
+docker-compose build
+docker-compose run web rails db:create db:migrate survey:csv_import
+docker-compose up
+```
+## Deploy local through RVM and Ruby
+```
+rvm install 3.4.3
+```
+Learn more about [RVM](https://rvm.io/rvm/install) installation
 
-* Database creation
+### Install dependencies
+Using [Bundler](https://github.com/bundler/bundler)
+```
+gem install bundler
+bundle
+```
+### Task for initial development setup
 
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+```
+rails db:create
+rails db:migrate
+```
+### Start rails server
+```
+rails s -b 0.0.0.0 -p 3000
+```
+### To run the tests, execute the command bellow
+```
+rspec
+```
