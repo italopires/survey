@@ -2,7 +2,7 @@ class EmployeesController < ActionController::API
   include JsonResourceable
 
   def index
-    employees = EmployeeQuery.new(Employee.all, filter_params).call
+    employees = EmployeeQuery.call(Employee.all, filter_params)
     render json: employees
   end
 

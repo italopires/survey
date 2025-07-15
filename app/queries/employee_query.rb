@@ -4,6 +4,10 @@ class EmployeeQuery
     @params = params
   end
 
+  def self.call(relation = Employee.all, params = {})
+    new(relation, params).call
+  end
+
   def call
     filter_by_name
       .filter_by_personal_email
