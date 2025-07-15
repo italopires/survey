@@ -16,13 +16,22 @@ class EmployeeQuery
       .filter_by_gender
       .filter_by_generation
       .filter_by_sub_team_id
-      .filter_by_hired_after
+      .paginate
       .relation
   end
 
   protected
 
   attr_reader :relation, :params
+
+  def paginate
+    return self unless params[:page].present?
+
+    page = params[:page] || 1
+    per_page = params[:per_page] || 25
+    @relation = relation.page(page).per(per_page)
+    self
+  end
 
   def filter_by_name
     return self unless params[:name].present?
@@ -98,13 +107,6 @@ class EmployeeQuery
     return self unless params[:sub_team_id].present?
 
     @relation = relation.where(sub_team_id: params[:sub_team_id])
-    self
-  end
-
-  def filter_by_hired_after
-    return self unless params[:hired_after].present?
-
-    @relation = relation.where("hired_at >= ?", params[:hired_after])
     self
   end
 end

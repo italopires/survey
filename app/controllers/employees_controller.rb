@@ -19,6 +19,6 @@ class EmployeesController < ActionController::API
   def all_params
     [:name, :personal_email, :corporate_email, :area,
       :role, :role_kind, :location, :company_tenure, :gender, :generation,
-      :sub_team_id]
+      :sub_team_id, :page, :per_page]
   end
 end
