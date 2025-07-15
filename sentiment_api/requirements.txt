@@ -1,0 +1,4 @@
+flask
+torch==2.2.2
+transformers
+numpy<2

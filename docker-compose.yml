@@ -19,6 +19,16 @@ services:
       - DATABASE_HOST=db
       - DATABASE_USERNAME=postgres
       - DATABASE_PASSWORD=postgres
+  sentiment_api:
+    build:
+      context: ./sentiment_api
+    ports:
+      - "5001:5001"
+    restart: always
+    volumes:
+      - ./sentiment_api:/app
+    working_dir: /app
+    command: python sentiment_api.py
 
 volumes:
   postgres:
