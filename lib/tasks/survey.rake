@@ -51,7 +51,7 @@ namespace :survey do
             e.role_kind = row['funcao']
             e.location = row['localidade']
             e.company_tenure = row['tempo_de_empresa']
-            e.gender = gender_map.fetch(row['geracao'].to_s.downcase, 2)
+            e.gender = gender_map.fetch(row['genero'].to_s.downcase, 2)
             e.generation = row['geracao']
             e.sub_team = sub_team
           end
