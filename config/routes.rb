@@ -13,4 +13,7 @@ Rails.application.routes.draw do
   # root "posts#index"
 
   resources :employees
+  resources :feelings, only: [] do
+    collection { get :analyse }
+  end
 end
