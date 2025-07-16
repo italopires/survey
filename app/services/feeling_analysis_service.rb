@@ -1,6 +1,6 @@
 class FeelingAnalysisService
   include HTTParty
-  base_uri 'http://localhost:5001' # 'localhost:5001'
+  base_uri 'http://sentiment_api:5001' # sentiment_api:5001 localhost:5001
 
   def initialize(comments)
     @comments = comments
@@ -15,7 +15,7 @@ class FeelingAnalysisService
     end
 
     grouped = responses.group_by { |r| r[:analysis]['feeling'] }
-    # binding.pry
+
     {
       summary: {
         total: responses.size,
@@ -28,7 +28,6 @@ class FeelingAnalysisService
         negative: grouped['negative']&.first(3)&.map { |r| r[:comment] } || [],
         neutral: grouped['neutral']&.first(3)&.map { |r| r[:comment] } || [],
       },
-      # all: responses
     }
   end
 

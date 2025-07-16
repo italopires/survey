@@ -17,8 +17,10 @@ class EmployeesController < ActionController::API
   end
 
   def all_params
-    [:name, :personal_email, :corporate_email, :area,
+    [
+      :name, :personal_email, :corporate_email, :area,
       :role, :role_kind, :location, :company_tenure, :gender, :generation,
-      :sub_team_id, :page, :per_page]
+      :sub_team_id, :page, :per_page
+    ]
   end
 end

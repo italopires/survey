@@ -1,5 +1,5 @@
 namespace :survey do
-  desc "Import Survey CSV file"
+  desc 'Import Survey CSV file'
   task csv_import: :environment do
     require 'csv'
     path = Rails.root.join('public', 'data.csv')
@@ -7,7 +7,7 @@ namespace :survey do
     begin
       Survey.transaction do
         survey = Survey.find_or_create_by!(title: 'Pesquisa de Satisfação')
-        
+
         CSV.open(path, 'r:utf-8', col_sep: ';', headers: true) do |csv|
           headers = csv.first.headers
 

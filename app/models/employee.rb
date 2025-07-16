@@ -3,9 +3,9 @@ class Employee < ApplicationRecord
   has_many :employee_answers
 
   validates :name, :personal_email, :corporate_email,
-    :area, :role, :role_kind, :location, :company_tenure, 
+    :area, :role, :role_kind, :location, :company_tenure,
     :gender, :generation, :sub_team_id, presence: true
-  
+
   validates :personal_email, :corporate_email, uniqueness: true
 
   enum :gender, {

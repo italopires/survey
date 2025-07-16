@@ -40,21 +40,21 @@ class EmployeeQuery
   def filter_by_name
     return self unless params[:name].present?
 
-    @relation = relation.where("name ILIKE ?", "%#{params[:name]}%")
+    @relation = relation.where('name ILIKE ?', "%#{params[:name]}%")
     self
   end
 
   def filter_by_personal_email
     return self unless params[:personal_email].present?
 
-    @relation = relation.where("personal_email ILIKE ?", "%#{params[:personal_email]}%")
+    @relation = relation.where('personal_email ILIKE ?', "%#{params[:personal_email]}%")
     self
   end
 
   def filter_by_corporate_email
     return self unless params[:corporate_email].present?
 
-    @relation = relation.where("corporate_email ILIKE ?", "%#{params[:corporate_email]}%")
+    @relation = relation.where('corporate_email ILIKE ?', "%#{params[:corporate_email]}%")
     self
   end
 

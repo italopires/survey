@@ -7,7 +7,7 @@ RSpec.describe Employee, type: :model do
   end
 
   context 'enumerations' do
-    it do 
+    it do
       is_expected.to define_enum_for(:gender)
         .with_values(male: 0, female: 1, other: 2)
     end
