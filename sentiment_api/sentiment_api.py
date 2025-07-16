@@ -1,10 +1,26 @@
 from flask import Flask, request, jsonify
-from transformers import pipeline
+import spacy
 
 app = Flask(__name__)
 
-# Carrega o modelo de sentimento multilíngue
-sentiment_pipeline = pipeline("sentiment-analysis", model="nlptown/bert-base-multilingual-uncased-sentiment")
+# Load portuguese model
+nlp = spacy.load("pt_core_news_sm")
+
+# Feeling Dictionary for analysis
+positive_words = {"bom", "ótimo", "excelente", "positivo", "agradável", "feliz", "acolhedor", "eficiente", "saudável",
+  "acolhedor", "adequado", "acessivel", "alinhada", "atrativos", "autonomia",
+  "boa", "boas", "capacitacao", "clareza", "colaborativa", "competitiva", "construtiva",
+  "criatividade", "desafiadores", "dinamico", "diversidade", "eficazes", "eficiente",
+  "empatia", "excelente", "forte", "fortalecem", "honestidade", "impacto", "inovacao",
+  "inspiradora", "justos", "modernos", "motivadora", "positiva",
+  "recompensas", "reconhecimento", "respeitado", "respeito", "satisfeito", "saudavel",
+  "transparencia", "valorizadas", "valorizam" }
+
+negative_words = {"ruim", "péssimo", "horrível", "negativo", "triste", "desagradável", "injusto", "estressante",
+  "afeta", "burocraticos", "confusa", "confuso", "dificultam", "estagnado", "estresse",
+  "excessiva", "falta", "fraca", "fraco", "ineficaz", "insuficiente", "limitadas",
+  "malentendidos", "nao", "pouco", "problemas"
+}
 
 @app.route("/analyze", methods=["POST"])
 def analyze():
@@ -14,22 +30,26 @@ def analyze():
     if not comment:
         return jsonify({"error": "Missing comment"}), 400
 
-    result = sentiment_pipeline(comment)[0]
+    doc = nlp(comment)
 
-    # Interpreta a nota como sentimento
-    score_map = {
-        "1 star": "muito negativo",
-        "2 stars": "negativo",
-        "3 stars": "neutro",
-        "4 stars": "positivo",
-        "5 stars": "muito positivo"
-    }
+    tokens = [token.lemma_.lower() for token in doc if not token.is_stop and not token.is_punct]
+
+    positives = [t for t in tokens if t in positive_words]
+    negatives = [t for t in tokens if t in negative_words]
+
+    if len(positives) > len(negatives):
+        feeling = "positive"
+    elif len(negatives) > len(positives):
+        feeling = "negative"
+    else:
+        feeling = "neutral"
 
     return jsonify({
         "comment": comment,
-        "label": score_map.get(result["label"], "desconhecido"),
-        "raw_label": result["label"],
-        "confidence": result["score"]
+        "preprocessed_tokens": tokens,
+        "positive_findings": positives,
+        "negative_findings": negatives,
+        "feeling": feeling
     })
 
 if __name__ == "__main__":
