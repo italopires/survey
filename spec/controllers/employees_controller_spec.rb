@@ -66,11 +66,11 @@ RSpec.describe EmployeesController, type: :controller do
   describe 'DELETE #destroy' do
     let!(:employee) { create(:employee) }
 
-    it 'destroys the employee' do
-      expect {
-        delete :destroy, params: { id: employee.id }
-      }.to change(Employee, :count).by(-1)
+    it 'soft deletes the employee' do
+      delete :destroy, params: { id: employee.id }
+
       expect(response).to have_http_status(:no_content)
+      expect(Employee.with_discarded.find(employee.id)).to be_discarded
     end
   end
 end
