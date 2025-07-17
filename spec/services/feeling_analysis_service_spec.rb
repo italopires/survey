@@ -16,13 +16,13 @@ RSpec.describe FeelingAnalysisService do
       ).to_return do |request|
         body = JSON.parse(request.body)
         response = case body['comment']
-                   when /excelente/
-                     { feeling: 'positive' }
-                   when /tóxico/
-                     { feeling: 'negative' }
-                   else
-                     { feeling: 'neutral' }
-                   end
+        when /excelente/
+          { feeling: 'positive' }
+        when /tóxico/
+          { feeling: 'negative' }
+        else
+          { feeling: 'neutral' }
+        end
 
         { status: 200, body: response.to_json, headers: { 'Content-Type' => 'application/json' } }
       end
