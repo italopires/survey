@@ -58,7 +58,7 @@ module JsonResourceable
   end
 
   def serializer_klass
-    "V1::#{resource_class}Serializer".constantize
+    "#{resource_class}Serializer".constantize
   end
 
   def render_resource
