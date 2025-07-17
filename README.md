@@ -105,3 +105,8 @@ This project integrates a sentiment analysis microservice to process employee fe
     "neutral": ["-", "-", "-"]
   }
 }
+
+### 📄 API Documentation
+
+You can explore and test the Sentiment Analysis API via Postman at the following link:  
+👉 [API Documentation on Postman](https://documenter.getpostman.com/view/34024629/2sB34ikzaC)
