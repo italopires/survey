@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_07_13_165516) do
+ActiveRecord::Schema[8.0].define(version: 2025_07_17_120818) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -59,7 +59,9 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_13_165516) do
     t.bigint "sub_team_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.datetime "deleted_at"
     t.index ["corporate_email"], name: "index_employees_on_corporate_email", unique: true
+    t.index ["deleted_at"], name: "index_employees_on_deleted_at"
     t.index ["name"], name: "index_employees_on_name"
     t.index ["personal_email"], name: "index_employees_on_personal_email", unique: true
     t.index ["sub_team_id"], name: "index_employees_on_sub_team_id"

@@ -44,6 +44,7 @@ gem 'csv', require: false
 gem 'active_model_serializers', '~> 0.10.0'
 gem 'kaminari'
 gem 'httparty'
+gem 'discard', '~> 1.4'
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem

@@ -27,7 +27,11 @@ module JsonResourceable
   end
 
   def destroy
-    resource.destroy!
+    if resource.respond_to?(:discard)
+      resource.discard!
+    else
+      resource.destroy!
+    end
     head :no_content
   end
 

@@ -1,4 +1,8 @@
 class Employee < ApplicationRecord
+  include Discard::Model
+
+  self.discard_column = :deleted_at
+
   belongs_to :sub_team, optional: true
   has_many :employee_answers
 
